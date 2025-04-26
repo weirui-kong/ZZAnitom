@@ -211,6 +211,9 @@ import CoreImage
             dragRotation = 0
             self.updateImageEffects()
             self.updateImageLayouts()
+            if (self.zzaHapticsEnabled) {
+                ZZAHapticManager.shared.play(.mediumImpact)
+            }
         default:
             break
         }

@@ -13,7 +13,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     /// Demo 列表
     let demoList = [
-        "Image Stack Demo"
+        "Image Stack Demo",
+        "Haptics Manager"
     ]
     
     override func viewDidLoad() {
@@ -71,6 +72,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switch indexPath.row {
         case 0:
             navigationController?.pushViewController(ZZAImageStackViewDemoViewController(), animated: true)
+        case 1:
+            navigationController?.pushViewController(ZZAHapticsManagerDemoViewController(), animated: true)
 
         default:
             break

@@ -46,3 +46,15 @@ func imageStackView(_ stackView: ZZAImageStackView, didTapImageAt index: Int) {
     selectedIndexLabel.text = "Selected Index: \(index)"
 }
 ```
+
+### `ZZAHapticsManager`
+Here is a simple example demonstrating how to use ZZAHapticsManager for generating haptic feedback on various events.
+
+```swift
+// Simple
+ZZAHapticManager.shared.play(.lightImpact)
+// Continuous
+ZZAHapticManager.shared.playContinuousVibration(duration: 2.0)
+// Customized
+ZZAHapticManager.shared.playCustomHaptic(intensity: 0.8, sharpness: 0.5, duration: 0.5)
+```
