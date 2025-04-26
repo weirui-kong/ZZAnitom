@@ -13,7 +13,7 @@ import SnapKit
 class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDelegate {
     
     let stackView = ZZAImageStackView()
-    let selectedImageView = UIImageView()  // Change from UILabel to UIImageView
+    let selectedImageView = UIImageView()
     let selectedIndexLabel = UILabel()
     let switchPlacementButton = UIButton()
     

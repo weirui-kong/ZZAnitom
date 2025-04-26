@@ -13,8 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     /// Demo 列表
     let demoList = [
-        "Image Stack Demo",
-        "Reversible Demo"
+        "Image Stack Demo"
     ]
     
     override func viewDidLoad() {

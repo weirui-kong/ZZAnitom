@@ -47,6 +47,7 @@ import CoreImage
     }
 
     /// Whether to enable advanced 3D drag effect
+    @available(*, deprecated, message: "This feature is not implemented yet.")
     public var advanced3DEffectEnabled: Bool = false
     /// Whether to enable pinch scale effect
     public var pinchEnabled: Bool = false
@@ -153,10 +154,7 @@ import CoreImage
                 
                 // Add advanced 3D rotation effect to top image
                 if self.advanced3DEffectEnabled  {
-                    var rotation3D = CATransform3DIdentity
-                    rotation3D.m34 = -1 / 500.0
-                    rotation3D = CATransform3DRotate(rotation3D, self.dragRotation * 0.2 * .pi / 180, 1, 1, 0)
-                    layerTransform = CATransform3DConcat(layerTransform, rotation3D)
+                    // TODO: Implement 3d effects.
                 }
                 
                 // Center image view inside self
