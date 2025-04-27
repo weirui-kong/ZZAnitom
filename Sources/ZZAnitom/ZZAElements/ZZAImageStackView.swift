@@ -25,7 +25,12 @@ import CoreImage
     }
 
     /// Size of each image
-    public var imageSize: CGSize = CGSize(width: 200, height: 300)
+    public var imageSize: CGSize = CGSize(width: 200, height: 300) {
+        didSet {
+            updateImageLayouts()
+        }
+    }
+    
 
     /// Spacing between images (not directly used yet, reserved for future)
     public var imageSpacing: CGFloat = 10
@@ -50,6 +55,7 @@ import CoreImage
     @available(*, deprecated, message: "This feature is not implemented yet.")
     public var advanced3DEffectEnabled: Bool = false
     /// Whether to enable pinch scale effect
+    @available(*, deprecated, message: "This feature is not sufficiently implemented yet.")
     public var pinchEnabled: Bool = false
 
     /// Delegate for tap callbacks

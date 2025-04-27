@@ -16,7 +16,12 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
     let selectedImageView = UIImageView()
     let selectedIndexLabel = UILabel()
     let switchPlacementButton = UIButton()
+    let increaseSizeButton = UIButton()
+    let decreaseSizeButton = UIButton()
     
+    // 原始比例
+    private let aspectRatio: CGFloat = 3.0 / 2.0  // 高宽比（300/200）
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -53,6 +58,20 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
         switchPlacementButton.addTarget(self, action: #selector(switchPlacement), for: .touchUpInside)
         view.addSubview(switchPlacementButton)
         
+        // Setup increase size button
+        increaseSizeButton.setTitle("Increase Size", for: .normal)
+        increaseSizeButton.backgroundColor = .systemGreen
+        increaseSizeButton.layer.cornerRadius = 8
+        increaseSizeButton.addTarget(self, action: #selector(increaseImageSize), for: .touchUpInside)
+        view.addSubview(increaseSizeButton)
+        
+        // Setup decrease size button
+        decreaseSizeButton.setTitle("Decrease Size", for: .normal)
+        decreaseSizeButton.backgroundColor = .systemRed
+        decreaseSizeButton.layer.cornerRadius = 8
+        decreaseSizeButton.addTarget(self, action: #selector(decreaseImageSize), for: .touchUpInside)
+        view.addSubview(decreaseSizeButton)
+        
         // Layout using SnapKit
         selectedImageView.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(20)
@@ -71,6 +90,20 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
             make.height.equalTo(44)
             make.width.equalTo(200)
         }
+        
+        increaseSizeButton.snp.makeConstraints { make in
+            make.top.equalTo(switchPlacementButton.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(40)
+            make.height.equalTo(44)
+            make.width.equalTo(140)
+        }
+        
+        decreaseSizeButton.snp.makeConstraints { make in
+            make.top.equalTo(switchPlacementButton.snp.bottom).offset(20)
+            make.right.equalToSuperview().offset(-40)
+            make.height.equalTo(44)
+            make.width.equalTo(140)
+        }
     }
     
     // MARK: - ZZAImageStackViewDelegate
@@ -86,13 +119,26 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
         print("Image tapped as \(image?.accessibilityIdentifier ?? "Unknown")")
     }
     
-    // MARK: - Button Action
+    // MARK: - Button Actions
     
     @objc private func switchPlacement() {
         stackView.placement = stackView.placement == .clockwise ? .counterClockwise : .clockwise
     }
+    
+    @objc private func increaseImageSize() {
+        let newWidth = stackView.imageSize.width + 20
+        let newHeight = newWidth * aspectRatio
+        stackView.imageSize = CGSize(width: newWidth, height: newHeight)
+    }
+    
+    @objc private func decreaseImageSize() {
+        let newWidth = max(40, stackView.imageSize.width - 20)  // 最小宽度限制40
+        let newHeight = newWidth * aspectRatio
+        stackView.imageSize = CGSize(width: newWidth, height: newHeight)
+    }
 }
 
+// MARK: - Safe Array Access
 extension Collection {
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
