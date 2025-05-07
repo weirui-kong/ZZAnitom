@@ -127,7 +127,7 @@ import CoreImage
         guard !images.isEmpty else { return }
         let count = min(images.count, cutOffAt)
         
-        UIView.animate(withDuration: 0.7,
+        UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0,
