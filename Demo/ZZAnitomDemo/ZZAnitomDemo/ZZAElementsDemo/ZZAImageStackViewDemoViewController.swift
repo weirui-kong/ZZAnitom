@@ -18,7 +18,9 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
     let switchPlacementButton = UIButton()
     let increaseSizeButton = UIButton()
     let decreaseSizeButton = UIButton()
-    
+    let forwardScrollButton = UIButton()
+    let backwardScrollButton = UIButton()
+
     // 原始比例
     private let aspectRatio: CGFloat = 3.0 / 2.0  // 高宽比（300/200）
 
@@ -27,7 +29,7 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
         view.backgroundColor = .systemBackground
         
         // Setup stack view
-        stackView.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
+        stackView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         stackView.center = view.center
         stackView.imageSize = CGSize(width: 200, height: 300)
         stackView.delegate = self
@@ -72,6 +74,20 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
         decreaseSizeButton.addTarget(self, action: #selector(decreaseImageSize), for: .touchUpInside)
         view.addSubview(decreaseSizeButton)
         
+        // Setup forward scroll button
+        forwardScrollButton.setTitle("Forward →", for: .normal)
+        forwardScrollButton.backgroundColor = .systemOrange
+        forwardScrollButton.layer.cornerRadius = 8
+        forwardScrollButton.addTarget(self, action: #selector(scrollForward), for: .touchUpInside)
+        view.addSubview(forwardScrollButton)
+
+        // Setup backward scroll button
+        backwardScrollButton.setTitle("← Backward", for: .normal)
+        backwardScrollButton.backgroundColor = .systemPurple
+        backwardScrollButton.layer.cornerRadius = 8
+        backwardScrollButton.addTarget(self, action: #selector(scrollBackward), for: .touchUpInside)
+        view.addSubview(backwardScrollButton)
+
         // Layout using SnapKit
         selectedImageView.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(20)
@@ -104,6 +120,20 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
             make.height.equalTo(44)
             make.width.equalTo(140)
         }
+        
+        backwardScrollButton.snp.makeConstraints { make in
+            make.top.equalTo(increaseSizeButton.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(40)
+            make.height.equalTo(44)
+            make.width.equalTo(140)
+        }
+        forwardScrollButton.snp.makeConstraints { make in
+            make.top.equalTo(decreaseSizeButton.snp.bottom).offset(20)
+            make.right.equalToSuperview().offset(-40)
+            make.height.equalTo(44)
+            make.width.equalTo(140)
+        }
+
     }
     
     // MARK: - ZZAImageStackViewDelegate
@@ -136,6 +166,15 @@ class ZZAImageStackViewDemoViewController: UIViewController, ZZAImageStackViewDe
         let newHeight = newWidth * aspectRatio
         stackView.imageSize = CGSize(width: newWidth, height: newHeight)
     }
+    
+    @objc private func scrollForward() {
+        stackView.scroll(by: 1)
+    }
+
+    @objc private func scrollBackward() {
+        stackView.scroll(by: -1)
+    }
+
 }
 
 // MARK: - Safe Array Access

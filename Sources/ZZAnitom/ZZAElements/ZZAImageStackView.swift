@@ -61,6 +61,27 @@ import CoreImage
     /// Delegate for tap callbacks
     public weak var delegate: ZZAImageStackViewDelegate?
 
+    // MARK: - Public Actions
+    
+    /// Scroll `imageViews` by steps
+    @objc public func scroll(by offset: Int) {
+        guard !imageViews.isEmpty else { return }
+
+        let count = imageViews.count
+        let safeOffset = ((offset % count) + count) % count
+        let head = imageViews[safeOffset..<count]
+        let tail = imageViews[0..<safeOffset]
+        imageViews = Array(head + tail)
+        
+        if (self.zzaHapticsEnabled) {
+            ZZAHapticManager.shared.play(.mediumImpact)
+        }
+        
+        self.updateImageEffects()
+        self.updateImageLayouts()
+    }
+
+    
     // MARK: - Private Properties
 
     private var imageViews: [ZZAImageView] = []
