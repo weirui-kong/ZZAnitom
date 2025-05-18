@@ -47,6 +47,33 @@ func imageStackView(_ stackView: ZZAImageStackView, didTapImageAt index: Int) {
 }
 ```
 
+### `ZZAModalViewController`
+
+Here's a simple example demonstrating how to use `ZZAModalViewController`, in which you can use your customized content view:
+
+| Center-Push | Center-Push |
+|---|---|
+| <img src="./statics/ZZAModalViewController-center.gif" height="400"> | <img src="./statics/ZZAModalViewController-bottom.gif" height="400"> |
+
+```swift
+let contentView = ZZAModalExampleContentView()
+let modalVC = ZZAModalViewController(
+    contentView: contentView,
+    cornerMask: [.topLeft, .topRight, .bottomLeft, .bottomRight],
+    dismissOnBackgroundTap: true,
+    backgroundStyle: .blur(style: .light),
+    placement: .center,
+    animationStyle: .fade
+)
+
+contentView.onClose = { [weak modalVC] in
+    modalVC?.dismissModal()
+}
+
+present(modalVC, animated: false)
+```
+
+
 ### `ZZAHapticsManager`
 Here is a simple example demonstrating how to use ZZAHapticsManager for generating haptic feedback on various events.
 
