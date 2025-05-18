@@ -49,7 +49,7 @@ func imageStackView(_ stackView: ZZAImageStackView, didTapImageAt index: Int) {
 
 ### `ZZAModalViewController`
 
-Here's a simple example demonstrating how to use `ZZAModalViewController`, in which you can use your customized content view:
+Here's a simple example demonstrating how to use `ZZAModalViewController`, where you can use your custom content view:
 
 | Center-Push | Center-Push |
 |---|---|
@@ -73,6 +73,7 @@ contentView.onClose = { [weak modalVC] in
 present(modalVC, animated: false)
 ```
 
+> Note: You must override `intrinsicContentSize` to let the container know the size of your content view.
 
 ### `ZZAHapticsManager`
 Here is a simple example demonstrating how to use ZZAHapticsManager for generating haptic feedback on various events.
