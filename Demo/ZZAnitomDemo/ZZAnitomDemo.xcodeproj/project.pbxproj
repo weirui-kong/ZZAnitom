@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A01E6C62DD9DA2900AD3929 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 0A01E6C52DD9DA2900AD3929 /* LookinServer */; };
 		0AE310272DBC05BD007D39D7 /* ZZAnitom in Frameworks */ = {isa = PBXBuildFile; productRef = 0AE310262DBC05BD007D39D7 /* ZZAnitom */; };
 		0AE3102D2DBC0723007D39D7 /* ZZAnitom in Frameworks */ = {isa = PBXBuildFile; productRef = 0AE3102C2DBC0723007D39D7 /* ZZAnitom */; };
 		0AE310302DBC07F9007D39D7 /* ZZAnitom in Frameworks */ = {isa = PBXBuildFile; productRef = 0AE3102F2DBC07F9007D39D7 /* ZZAnitom */; };
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A01E6C62DD9DA2900AD3929 /* LookinServer in Frameworks */,
 				0AE3102D2DBC0723007D39D7 /* ZZAnitom in Frameworks */,
 				0AE310592DBC0A7C007D39D7 /* SnapKit in Frameworks */,
 				0AE310272DBC05BD007D39D7 /* ZZAnitom in Frameworks */,
@@ -93,6 +95,7 @@
 				0AE3102C2DBC0723007D39D7 /* ZZAnitom */,
 				0AE3102F2DBC07F9007D39D7 /* ZZAnitom */,
 				0AE310582DBC0A7C007D39D7 /* SnapKit */,
+				0A01E6C52DD9DA2900AD3929 /* LookinServer */,
 			);
 			productName = ZZAnitomDemo;
 			productReference = 0AE3100D2DBC059B007D39D7 /* ZZAnitomDemo.app */;
@@ -125,6 +128,7 @@
 			packageReferences = (
 				0AE3102E2DBC07F9007D39D7 /* XCLocalSwiftPackageReference "../../../ZZAnitom" */,
 				0AE310572DBC0A7C007D39D7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0A01E6C42DD9DA2900AD3929 /* XCRemoteSwiftPackageReference "LookinServer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0AE3100E2DBC059B007D39D7 /* Products */;
@@ -367,6 +371,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A01E6C42DD9DA2900AD3929 /* XCRemoteSwiftPackageReference "LookinServer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QMUI/LookinServer/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.8;
+			};
+		};
 		0AE310572DBC0A7C007D39D7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -378,6 +390,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A01E6C52DD9DA2900AD3929 /* LookinServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A01E6C42DD9DA2900AD3929 /* XCRemoteSwiftPackageReference "LookinServer" */;
+			productName = LookinServer;
+		};
 		0AE310262DBC05BD007D39D7 /* ZZAnitom */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ZZAnitom;

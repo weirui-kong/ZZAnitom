@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     /// Demo 列表
     let demoList = [
         "Image Stack Demo",
+        "ZZAModal",
         "Haptics Manager"
     ]
     
@@ -23,7 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         title = "ZZAnitom Demo"
         setupTableView()
         setupNavigationBar()
-        navigationController?.pushViewController(ZZAImageStackViewDemoViewController(), animated: true)
+        navigationController?.pushViewController(ZZAModalDemoViewController(), animated: true)
 
     }
     
@@ -44,7 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func setupTableView() {
         view.addSubview(tableView)
-        tableView.frame = view.bounds // 如果你用 SnapKit，也可以写 tableView.snp.makeConstraints
+        tableView.frame = view.bounds
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -73,6 +74,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case 0:
             navigationController?.pushViewController(ZZAImageStackViewDemoViewController(), animated: true)
         case 1:
+            navigationController?.pushViewController(ZZAModalDemoViewController(), animated: true)
+        case 2:
             navigationController?.pushViewController(ZZAHapticsManagerDemoViewController(), animated: true)
 
         default:
