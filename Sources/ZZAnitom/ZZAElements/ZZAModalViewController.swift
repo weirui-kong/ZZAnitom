@@ -228,20 +228,12 @@ public class ZZAModalViewController: UIViewController {
                     completion()
                 }
             case .bottom:
-                let screenHeight = self.view.window?.bounds.height ?? self.view.bounds.height
-                let containerOriginY = self.containerView.frame.origin.y
-                let containerHeight = self.containerView.frame.height
-                let padding = bottomPadding ?? view.safeAreaInsets.bottom
-                let slideOutOffset = screenHeight - containerOriginY + containerHeight + padding
-
-                containerBottomConstraint?.update(offset: slideOutOffset)
-
                 UIView.animate(withDuration: 0.5,
                                delay: 0,
                                usingSpringWithDamping: 0.8,
                                initialSpringVelocity: 0.8,
                                options: [.curveEaseIn]) {
-                    self.view.layoutIfNeeded()
+                    self.containerView.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
                 } completion: { _ in
                     completion()
                 }
