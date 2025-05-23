@@ -174,7 +174,8 @@ Note: Some use cases may require SnapKit for layout support.
 class ZZAModalDemoViewController: UIViewController {
 
     private let cornerSwitches: [UISwitch] = [.init(), .init(), .init(), .init()]
-    private let dismissSwitch = UISwitch()
+    private let dismissBackgroundTapSwitch = UISwitch()
+    private let dismissScrollDownSwitch = UISwitch()
     private let blurSegment = UISegmentedControl(items: ["Dim", "BlurLight", "BlurDark"])
     private let placementSegment = UISegmentedControl(items: ["Center", "Bottom"])
     private let animationSegment = UISegmentedControl(items: ["Fade", "Push"])
@@ -206,8 +207,8 @@ class ZZAModalDemoViewController: UIViewController {
         let dismissLabel = UILabel()
         dismissLabel.text = "Dismiss on Background Tap"
         
-        dismissSwitch.isOn = true
-        let dismissStack = UIStackView(arrangedSubviews: [dismissLabel, dismissSwitch])
+        dismissBackgroundTapSwitch.isOn = true
+        let dismissStack = UIStackView(arrangedSubviews: [dismissLabel, dismissBackgroundTapSwitch])
         dismissStack.axis = .horizontal
         dismissStack.spacing = 8
         
@@ -217,10 +218,24 @@ class ZZAModalDemoViewController: UIViewController {
             make.leading.equalToSuperview().offset(20)
         }
 
+        let dismissScrollLabel = UILabel()
+        dismissScrollLabel.text = "Dismiss on Scroll Down"
+        
+        dismissScrollDownSwitch.isOn = true
+        let dismissScrollStack = UIStackView(arrangedSubviews: [dismissScrollLabel, dismissScrollDownSwitch])
+        dismissScrollStack.axis = .horizontal
+        dismissScrollStack.spacing = 8
+        
+        view.addSubview(dismissScrollStack)
+        dismissScrollStack.snp.makeConstraints { make in
+            make.top.equalTo(dismissStack.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+        }
+
         blurSegment.selectedSegmentIndex = 1
         view.addSubview(blurSegment)
         blurSegment.snp.makeConstraints { make in
-            make.top.equalTo(dismissStack.snp.bottom).offset(20)
+            make.top.equalTo(dismissScrollStack.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.width.equalTo(250)
         }
@@ -274,10 +289,12 @@ class ZZAModalDemoViewController: UIViewController {
         let animationStyle: ZZAModalAnimationStyle = (animationSegment.selectedSegmentIndex == 0) ? .fade : .push
 
         let contentView = ZZAModalExampleContentView()
+
         let modalVC = ZZAModalViewController(
             contentView: contentView,
             cornerMask: mask,
-            dismissOnBackgroundTap: dismissSwitch.isOn,
+            dismissOnBackgroundTap: dismissBackgroundTapSwitch.isOn,
+            dismissOnScrolldown: dismissScrollDownSwitch.isOn,
             backgroundStyle: bgStyle,
             placement: placement,
             animationStyle: animationStyle

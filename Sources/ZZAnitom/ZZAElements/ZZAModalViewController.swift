@@ -35,9 +35,10 @@ public class ZZAModalViewController: UIViewController {
     private let contentView: UIView
     private let cornerMask: ZZACornerMask
     private let dismissOnBackgroundTap: Bool
+    private let dismissOnScrolldown: Bool
     private let backgroundStyle: ZZAModalBackgroundStyle
     private let placement: ZZAModalPlacement
-    private let animationStyle: ZZAModalAnimationStyle
+    private var animationStyle: ZZAModalAnimationStyle
     private let bottomPadding: CGFloat?
     
     /// Callback that is triggered upon modal dismissal.
@@ -62,6 +63,7 @@ public class ZZAModalViewController: UIViewController {
     public init(contentView: UIView,
                 cornerMask: ZZACornerMask = .allCorners,
                 dismissOnBackgroundTap: Bool = true,
+                dismissOnScrolldown: Bool = true,
                 backgroundStyle: ZZAModalBackgroundStyle = .dimmedBlack,
                 placement: ZZAModalPlacement = .center,
                 animationStyle: ZZAModalAnimationStyle = .push,
@@ -69,6 +71,7 @@ public class ZZAModalViewController: UIViewController {
         self.contentView = contentView
         self.cornerMask = cornerMask
         self.dismissOnBackgroundTap = dismissOnBackgroundTap
+        self.dismissOnScrolldown = dismissOnScrolldown
         self.backgroundStyle = backgroundStyle
         self.placement = placement
         self.animationStyle = animationStyle
@@ -157,6 +160,10 @@ public class ZZAModalViewController: UIViewController {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap(_:)))
             tapGesture.cancelsTouchesInView = false
             backgroundView.addGestureRecognizer(tapGesture)
+        }
+        if dismissOnScrolldown {
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+            containerView.addGestureRecognizer(panGesture)
         }
     }
     
@@ -252,6 +259,36 @@ public class ZZAModalViewController: UIViewController {
         dismissModal()
     }
     
+    @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.containerView)
+        let distance = translation.y
+        let sign: CGFloat = distance >= 0 ? 1 : -1
+
+        let resistance: CGFloat = 150
+
+        let adjustedTranslationY = sign * (abs(distance) / (1 + abs(distance) / resistance))
+
+        switch gesture.state {
+        case .changed:
+            self.containerView.transform = CGAffineTransform(translationX: 0, y: adjustedTranslationY)
+        case .ended, .cancelled:
+            if distance > 100 {
+                self.animationStyle = .push
+                dismissModal()
+            } else {
+                UIView.animate(withDuration: 0.25,
+                               delay: 0,
+                               usingSpringWithDamping: 0.8,
+                               initialSpringVelocity: 0.8,
+                               options: [.curveEaseOut]) {
+                    self.containerView.transform = .identity
+                }
+            }
+        default:
+            break
+        }
+    }
+
     // MARK: - Public Methods
     
     /// Dismisses the modal with an animation.
